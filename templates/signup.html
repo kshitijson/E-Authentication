@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en" xmlns:object-position="http://www.w3.org/1999/xhtml">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.compat.css">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+
+    <title>Signup | E-Auth</title>
+
+    <script>  
+      function verifyPassword() { 
+        function containsSpecialChars(str) {
+          const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+          return specialChars.test(str);
+        }
+
+        var pw = document.getElementById("passwd").value;
+        var pw1 = document.getElementById("passwd1").value;
+        var usr = document.getElementById("usrname").value  
+        //check empty password field  
+        if(pw == "") {  
+           document.getElementById("message").innerHTML = "**Fill the password please!";  
+           return false;  
+        }  
+         
+       //minimum password length validation  
+        if(pw.length < 8) {  
+           document.getElementById("message").innerHTML = "**Password length must be atleast 8 characters";  
+           return false;  
+        }  
+        
+      //maximum length of password validation  
+        if(pw.length > 15) {  
+           document.getElementById("message").innerHTML = "**Password length must not exceed 15 characters";  
+           return false;  
+        }
+        
+        //check if the passwd and conf passwd are the same
+        if(pw != pw1) {  
+           document.getElementById("message").innerHTML = "**Password and confirm password does not match!";  
+           return false;  
+        }
+
+        //check if the username contains any special characters
+        if(containsSpecialChars(usr)){
+          document.getElementById("message1").innerHTML = "**Username must not contain any special characters!";  
+          return false;
+        } 
+      }  
+      </script>
+
+      <style>
+        *{
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+          font-family: 'Poppins',sans-serif;
+        }
+        body{
+          background: linear-gradient(135deg, gray, lightgray)
+        }
+        section{
+          display: flex;
+          height: 100vh;
+          justify-content: center;
+          align-items: center;
+        }
+        .container{
+          max-width: 700px;
+          width: 100%;
+          background: #fff;
+          padding: 25px 30px;
+        }
+        .container .title{
+          font-size: 25px;
+          font-weight: 700;
+          position: relative;
+        }
+        .container .title::before{
+          content: '';
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          height: 3px;
+          width: 30px;
+          background: linear-gradient(135deg, #71b7e6, #9b59b6);
+        }
+        .container form .user-details{
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+        }
+        form .user-details .input-box{
+          width: calc(100% / 2 - 20px);
+        }
+        .user-details .input-box input{
+          height: 45px;
+          width: 100%;
+          outline: none;
+          margin: 20px 0 12px 0;
+          border-radius: 5px;
+          border: 1px solid #ccc;
+          padding-left: 15px;
+          font-size: 16px;
+          border-bottom-width: 2px;
+          transition: all 0.3s ease;
+        }
+        .user-details .input-box .path{
+          border-bottom-width: 2px;
+          border: 1px solid #ccc;
+        }
+        .user-details .input-box input:focus,
+        .user-details .input-box input:valid{
+          border-color: #9b59b6;
+        }
+        .user-details .input-box .details{
+          font-weight: 700;
+          margin-top: 8px;
+        }
+        .user-details .input-box .path{
+          width: 213%;
+          margin: 10px 0;
+        }
+        .user-details .gender-details{
+          margin-top: 24px;
+        }
+        .user-details .gender-details .gender-title{
+          font-size: 20px;
+          font-weight: 700;
+        }
+        .user-details .gender-details .category{
+          display: flex;
+          width: 150%;
+          margin: 14px 0;
+          justify-content: space-between;
+        }
+        .user-details .gender-details .category label{
+          display: flex;
+          align-items: center;
+        }
+        .user-details .gender-details .category .dot{
+          height: 18px;
+          width: 18px;
+          background: #d9d9d9;
+          border-radius: 50%;
+          margin-right: 10px;
+          border: 5px solid transparent;
+          transition: all 0.3s ease;
+        }
+        #dot-1:checked ~ .category label .one,
+        #dot-2:checked ~ .category label .two{
+          border-color: #d9d9d9;
+          background-color: #9b59b6;
+        }
+        form input[type='radio']{
+          display: none;
+        }
+        form .btn1{
+          height: 45px;
+          margin: 10px 0;
+          border: none;
+          outline: none;
+          height: 50px;
+          width: 40%;
+          background: linear-gradient(135deg, #71b7e6, #9b59b6);
+          color: black;
+          border-radius: 4px;
+          font-weight: bold;
+        }
+        .btn1:hover{
+          background: white;
+          border: 1px solid #9b59b6;
+          color: black;
+        }
+        @media (max-width: 584px){
+          .container{
+            max-width: 100%
+          }
+          form .user-details .input-box{
+            margin-bottom: 15px;
+            width: 100%;
+          }
+          .user-details .gender-details .category{
+          display: flex;
+          width: 200%;
+          }
+          .container form .user-details{
+            max-height: 300px;
+            overflow-y: scroll;
+          }
+          .user-details::-webkit-scrollbar{
+            width: 0;
+          }
+        }
+      </style>
+  </head>
+  <body>
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="Home"><h1>Electronic Authentication</h1></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href='Home'><h5>Home</h5></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="Login"><h5>Login</h5></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="Sign-up"><h5 class="animated bounce">Sign-up</h5></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="Contact_Us"><h5>Contact Us</h5></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  </nav>
+
+  {% if messages %}
+  {% for message in messages %}
+  {% if message.tags == "warning" %}
+    <div class="alert alert-danger alert-dismissible fade show my-0" role="alert">
+      <strong>{{ message }}</strong>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  {% else %}
+  <div class="alert alert-{{ message.tags }} alert-dismissible fade show my-0" role="alert">
+    <strong>{{ message }}</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+
+  <section>
+    <div class="container">
+      <div class="title">Registration</div>
+      <form method="post" action="/Sign-up" onsubmit="return verifyPassword()">
+      {% csrf_token %}
+        <div class="user-details">
+          <div class="input-box">
+            <input type="text" name="Full Name" placeholder="Full Name" required>
+          </div>
+          <div class="input-box">
+            <input type="text" name="Username" placeholder="Username" id="usrname" required>
+            <span id = "message1" style="color:red"> </span> <br><br>
+          </div>
+          <div class="input-box">
+            <input type="text" name="Mobile Number" placeholder="Mobile Number" required>
+          </div>
+          <div class="input-box">
+            <input type="email" name="Email Address" placeholder="Email Address" required>
+          </div>
+          <div class="gender-details">
+            <input type="radio" name="Male" id="dot-1" value="Male">
+            <input type="radio" name="Female" id="dot-2" value="Female">
+            <span class="gender-title">Gender</span>
+            <div class="category">
+              <label for="dot-1">
+                <span class="dot one"></span>
+                <span class="gender" for="Male">Male</span>
+              </label>
+              <label for="dot-2">
+                <span class="dot two"></span>
+                <span class="gender" for="Female">Female</span>
+              </label>
+            </div>
+          </div>
+          <div class="input-box">
+            <span class="details">D.O.B</span>
+            <input type="date" name="dob" placeholder="Date of Birth" required>
+          </div>
+          <div class="input-box">
+            <input type="password" name="pass" placeholder="Password" id="passwd" required>
+          </div>
+          <div class="input-box">
+            <input type="password" name="conf pass" placeholder="Confirm Password" id="passwd1" required>
+            <span id = "message" style="color:red"> </span> <br><br>
+          </div>
+          <div class="input-box">
+            <span>
+              <button id="btn1" type="button" class="btn btn-dark my-0">QR-Code location~ D:\QR</button>
+            </span>
+            <input class="path" name="passphrase" type="text" placeholder="Enter a passphrase for security" required>
+          </div>
+        </div>
+        <button type="submit" class="btn1">Register</button>
+        <p>Already have an account? <a href="Login">Login here</a></p>
+      </form>
+    </div>
+  </section>
+  
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js" integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2" crossorigin="anonymous"></script>
+    -->
+
+  </body>
+</html>

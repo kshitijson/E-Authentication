@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+
+    <title>Change Password</title>
+
+    <script> 
+        function validatePassword() {
+
+          var password = document.getElementById("password")
+          var confirm_password = document.getElementById("confirmPassword");
+          
+            if(password.value != confirm_password.value) {
+                confirm_password.setCustomValidity("Passwords Don't Match");
+                return false;
+            } 
+            if(password.length < 8){
+                confirm_password.setCustomValidity("Password Must not be less than 8 characters");
+                return false;
+            }
+            if(password.length > 15){
+                confirm_password.setCustomValidity("Password Must not be greater than 15 characters");
+                return false;
+            }
+            //else {
+              //  confirm_password.setCustomValidity('');
+                //return true;
+            //}
+        }
+
+    </script>
+
+    <style>
+        *{
+            font-family: 'Poppins', sans-serif;
+        }
+        .mainDiv {
+            display: flex;
+            min-height: 100%;
+            align-items: center;
+            justify-content: center;
+            background-color: #f9f9f9;
+            font-family: 'Open Sans', sans-serif;
+        }
+        .cardStyle {
+            width: 500px;
+            border-color: white;
+            background: #fff;
+            padding: 36px 0;
+            border-radius: 4px;
+            margin: 30px 0;
+            box-shadow: 0px 0 2px 0 rgba(0,0,0,0.25);
+        }
+        #signupLogo {
+            max-height: 100px;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        .formTitle{
+            font-weight: 600;
+            margin-top: 20px;
+            color: #2F2D3B;
+            text-align: center;
+        }
+        .inputLabel {
+            font-size: 12px;
+            color: #555;
+            margin-bottom: 6px;
+            margin-top: 24px;
+        }
+        .inputDiv {
+            width: 70%;
+            display: flex;
+            flex-direction: column;
+            margin: auto;
+        }
+        input {
+            height: 40px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: none;
+            border: solid 1px #ccc;
+            padding: 0 11px;
+        }
+        input:disabled {
+            cursor: not-allowed;
+            border: solid 1px #eee;
+        }
+        .buttonWrapper {
+            margin-top: 40px;
+        }
+        .submitButton {
+            width: 70%;
+            height: 40px;
+            margin: auto;
+            display: block;
+            color: #fff;
+            background-color: #065492;
+            border-color: #065492;
+            text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
+            box-shadow: 0 2px 0 rgba(0, 0, 0, 0.035);
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .submitButton:disabled,
+        button[disabled] {
+            border: 1px solid #cccccc;
+            background-color: #cccccc;
+            color: #666666;
+        }
+
+    </style>
+  </head>
+  <body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand disabled" href="Home"><h1>{{ username }}</h1></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="/Profile" ><h5>Profile</h5></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="Contact_Us"><h5>Help</h5></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/logout"><h5>Logout</h5></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      
+    {% if messages %}
+    {% for message in messages %}
+    {% if message.tags == 'warning' %}
+    <div class="alert alert-danger alert-dismissible fade show my-0" role="alert">
+        <strong>{{ message }}</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    {% else %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show my-0" role="alert">
+      <strong>{{ message }}</strong>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+
+    <div class="mainDiv">
+        <div class="cardStyle">
+          <form action="" method="post" name="signupForm" id="signupForm">
+            {% csrf_token %}
+            
+            <img src="" id="signupLogo"/>
+            
+            <h2 class="formTitle">
+              Change Password
+            </h2>
+            
+          <div class="inputDiv">
+            <label class="inputLabel" for="password">Old Password</label>
+            <input type="password" id="oldpassword" name="oldpassword" required>
+          </div>
+
+          <div class="inputDiv">
+            <label class="inputLabel" for="password">New Password</label>
+            <input type="password" id="password" name="password" required>
+          </div>
+            
+          <div class="inputDiv">
+            <label class="inputLabel" for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required>
+          </div>
+          
+          <div class="buttonWrapper">
+            <button type="submit" id="submitButton" onclick="validatePassword()" class="submitButton pure-button pure-button-primary">
+              <span>Confirm Changes</span>
+              <span id="loader"></span>
+            </button>
+          </div>
+            
+        </form>
+        </div>
+      </div>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js" integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>

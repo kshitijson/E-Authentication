@@ -1,0 +1,14 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: Border-box;
+    font-family: 'Poppins',sans-serif;
+    background-color: red;
+  }
+  a.disabled {
+    pointer-events: none;
+    cursor: default;
+  }
+  #small{
+    color: blueviolet;
+  }

@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+    <title>Change Password | E-Auth</title>
+    <style>
+        *{
+            font-family: 'Poppins', sans-serif;
+        }
+        .mainDiv {
+            display: flex;
+            min-height: 100%;
+            align-items: center;
+            justify-content: center;
+            background-color: #f9f9f9;
+            font-family: 'Open Sans', sans-serif;
+        }
+        .cardStyle {
+            width: 500px;
+            border-color: white;
+            background: #fff;
+            padding: 36px 0;
+            border-radius: 4px;
+            margin: 30px 0;
+            box-shadow: 0px 0 2px 0 rgba(0,0,0,0.25);
+        }
+        #signupLogo {
+            max-height: 100px;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        .formTitle{
+            font-weight: 600;
+            margin-top: 20px;
+            color: #2F2D3B;
+            text-align: center;
+        }
+        .inputLabel {
+            font-size: 12px;
+            color: #555;
+            margin-bottom: 6px;
+            margin-top: 24px;
+        }
+        .inputDiv {
+            width: 70%;
+            display: flex;
+            flex-direction: column;
+            margin: auto;
+        }
+        input {
+            height: 40px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: none;
+            border: solid 1px #ccc;
+            padding: 0 11px;
+        }
+        input:disabled {
+            cursor: not-allowed;
+            border: solid 1px #eee;
+        }
+        .buttonWrapper {
+            margin-top: 40px;
+        }
+        .submitButton {
+            width: 70%;
+            height: 40px;
+            margin: auto;
+            display: block;
+            color: #fff;
+            background-color: #065492;
+            border-color: #065492;
+            text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
+            box-shadow: 0 2px 0 rgba(0, 0, 0, 0.035);
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .submitButton:disabled,
+        button[disabled] {
+            border: 1px solid #cccccc;
+            background-color: #cccccc;
+            color: #666666;
+        }
+
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand disabled" href="Home"><h1>Electronic Authentication</h1></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="Home"><h5>Home</h5></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="Login"><h5>Login</h5></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="Sign-up"><h5>Signup</h5></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="Contact_Us"><h5>Contact Us</h5></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      
+    {% if messages %}
+    {% for message in messages %}
+    {% if message.tags == 'warning' %}
+    <div class="alert alert-danger alert-dismissible fade show my-0" role="alert">
+        <strong>{{ message }}</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    {% else %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show my-0" role="alert">
+      <strong>{{ message }}</strong>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+
+    <div class="mainDiv">
+        <div class="cardStyle">
+          <form action="" method="post" name="signupForm" id="signupForm">
+            {% csrf_token %}
+            
+            <img src="" id="signupLogo"/>
+            
+            <h2 class="formTitle">
+              Change Password
+            </h2>
+            
+          <div class="inputDiv">
+            <label class="inputLabel" for="password"><h6>Gmail</h6></label>
+            <input type="email" id="oldpassword" name="email" required>
+          </div>
+
+          <div class="inputDiv">
+            <label class="inputLabel" for="password"><h6>Passphrase entered while registering</h6></label>
+            <input type="text" id="password" name="passphrase" required>
+          </div>
+          
+          <div class="buttonWrapper">
+            <button type="submit" id="submitButton" class="submitButton pure-button pure-button-primary">
+              <span>Generate Password</span>
+              <span id="loader"></span>
+            </button>
+          </div>
+            
+        </form>
+        </div>
+      </div>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>
