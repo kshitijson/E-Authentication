@@ -8,7 +8,13 @@ import math, random
 from mailer import Mailer
 from django.contrib.auth.models import User
 import string
- 
+import imghdr
+from email.message import EmailMessage
+
+global sender_addr
+sender_addr = "Your email address"
+global sender_passwd
+sender_passwd = 'email password'
 
 class AuthenticateUser:
     def __init__(self, name, mail):
@@ -28,7 +34,7 @@ class AuthenticateUser:
             msg = f"""Your Otp for this session is <b>{OTP}</b>
             
             Note: Don't share your otp with anybody"""
-            mail = Mailer(email='e.authentication2002@gmail.com', password='rfdudovgzjqobcss')
+            mail = Mailer(email=sender_addr, password=sender_passwd)
             mail.send(receiver=self.mail, subject='Here is your OTP for Login', message=(msg))
             print('Mail Sent')
             return OTP
@@ -44,7 +50,7 @@ class AuthenticateUser:
             return salting_num
         salting_design = salting()
 
-        dir = r'D:/QR/'
+        dir = r'C:/QR/'
         path_qr = f"{dir}{self.name}.png"
         salted_name = f'{self.name}{salting_design}'
         if not os.path.isdir(dir):
@@ -55,8 +61,32 @@ class AuthenticateUser:
             qr_image.save(path_qr)
             print(f'Your qr code is generated ate {dir}')
         else:
-            qr_image = qrcode.make(salted_name)
-            qr_image.save(path_qr)
+                qr_image = qrcode.make(salted_name)
+                qr_image.save(path_qr)
+
+        try:
+            newMessage = EmailMessage()                         
+            newMessage['Subject'] = "QR-Code Generated Successfully" 
+            newMessage['From'] = sender_addr                   
+            newMessage['To'] = self.mail                 
+            newMessage.set_content('Here is your Qr-code for the current session') 
+            with open(path_qr, 'rb') as f:
+                image_data = f.read()
+                image_type = imghdr.what(f.name)
+                image_name = f'{self.name}.png'
+            newMessage.add_attachment(image_data, maintype='image', subtype=image_type, filename=image_name)
+            with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
+                
+                smtp.login(sender_addr, sender_passwd)              
+                smtp.send_message(newMessage)
+            
+            if not os.path.exists(path_qr):
+                pass
+            else:
+                os.remove(path_qr)
+                
+        except Exception as es:
+            print('failed', es)
 
         return salted_name
 
@@ -97,7 +127,7 @@ class Change_passwd:
             <b>{passwd}</b>
             
             Note: Change password immediately after login"""
-            mail = Mailer(email='e.authentication2002@gmail.com', password='rfdudovgzjqobcss')
+            mail = Mailer(email=sender_addr, password=sender_passwd)
             mail.send(receiver=self.mail, subject='Temporory Password', message=(msg))
             print('Mail Sent')
             return passwd
